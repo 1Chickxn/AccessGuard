@@ -14,14 +14,11 @@ public class PaperPlugin extends JavaPlugin {
     private static PaperPlugin instance;
 
     private UserHandler userHandler;
-    //private PaperConfiguration paperConfiguration;
 
     @Override
     public void onEnable() {
         instance = this;
         this.userHandler = new UserHandler();
-        //this.paperConfiguration = Aeon.insert(new PaperConfiguration());
-
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
     }
 
