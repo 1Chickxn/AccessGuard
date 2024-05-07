@@ -1,4 +1,4 @@
-![Logo](https://cdn.discordapp.com/attachments/1188215566935265280/1237533508327706654/OIG4.png?ex=663bfe64&is=663aace4&hm=5cc3f8e6464622791c348988f08082da30d13afb27af20ebcb83f8196f5e2444&)
+![Logo](https://cdn.discordapp.com/attachments/1188215566935265280/1237533985014284299/OIG4.png?ex=663bfed6&is=663aad56&hm=cec2b0c6457c92339d5c385538bbc8961e02e0f00bf888483cfa878b63e71db2&)
 
 
 # Vynl-PermissionSystem
