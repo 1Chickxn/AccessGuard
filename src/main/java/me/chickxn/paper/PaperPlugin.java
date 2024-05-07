@@ -21,6 +21,7 @@ public class PaperPlugin extends JavaPlugin {
         instance = this;
         this.userHandler = new UserHandler();
         //this.paperConfiguration = Aeon.insert(new PaperConfiguration());
+
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
     }
 
