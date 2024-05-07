@@ -1,7 +1,7 @@
 ![Logo](https://cdn.discordapp.com/attachments/1188215566935265280/1237533985014284299/OIG4.png?ex=663bfed6&is=663aad56&hm=cec2b0c6457c92339d5c385538bbc8961e02e0f00bf888483cfa878b63e71db2&)
 
 
-# Vynl-PermissionSystem
+# Vynl-PermissionSystem (currently in development)
 Introducing Vynl-PermissionSystem
 
 Unlock the full potential of your Minecraft server with Vynl-PermissionSystem, the cutting-edge solution for personalized permissions management. Our system empowers players to tailor their own permissions, ensuring a unique and customized gameplay experience.
