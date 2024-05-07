@@ -3,7 +3,6 @@ package me.chickxn.paper;
 import lombok.Getter;
 import me.chickxn.global.user.UserHandler;
 import me.chickxn.paper.listener.PlayerJoinListener;
-import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
