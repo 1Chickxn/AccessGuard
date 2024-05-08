@@ -12,7 +12,6 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent playerJoinEvent) {
         Player player = playerJoinEvent.getPlayer();
         PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId());
-        PaperPlugin.getInstance().getUserHandler().initPlayerPermission(player);
-
+        PaperPlugin.getInstance().getPaperUserHandler().initPlayerPermission(player);
     }
 }
