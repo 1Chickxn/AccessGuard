@@ -15,11 +15,11 @@ public class UserHandler {
     }
 
     public User getUser(UUID uuid) {
-        return repository.query(MariaDbLayer.class).find().stream().filter(it -> it.getUuid().equals(uuid)).findFirst().orElse(null);
+        return repository.query().match("uuid", uuid).findFirst();
     }
 
     public void createUserIfNotExists(UUID uuid) {
-        if (repository.query(MariaDbLayer.class).find().stream().anyMatch(it -> it.getUuid().equals(uuid))) return;
+        if (repository.query().match("uuid", uuid).exists()) return;
         repository.query().create(new User(uuid, "default", List.of("test.permission")));
     }
 
