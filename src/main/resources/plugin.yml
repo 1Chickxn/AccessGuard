@@ -1,9 +1,13 @@
-name: Vynl-PermissionSystem
-version: 2.0
+name: AccessGuard
+version: 1.0
 author: 1Chickxn
 main: me.chickxn.paper.PaperPlugin
 api-version: 1.20
 commands:
-  permission:
+  accessguard:
     aliases:
-      - permissions
+      - aguard
+      - accessg
+      - perms
+      - perm
+      - permission

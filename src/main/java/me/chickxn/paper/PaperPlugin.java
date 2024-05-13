@@ -22,14 +22,14 @@ public class PaperPlugin extends JavaPlugin {
     private PaperUserHandler paperUserHandler;
     private UUIDFetcher uuidFetcher;
 
-    private final String prefix = "§8▶▷ §bVynl §8✒ §7";
+    private final String prefix = "§8▶▷ §9AccessGuard §8✒ §7";
 
     @Override
     public void onEnable() {
         instance = this;
 
-        this.paperUserHandler = new PaperUserHandler();
         this.userHandler = new UserHandler();
+        this.paperUserHandler = new PaperUserHandler();
         this.groupHandler = new GroupHandler();
         this.uuidFetcher = new UUIDFetcher();
 
@@ -37,8 +37,8 @@ public class PaperPlugin extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
 
-        getCommand("permission").setExecutor(new PermissionCommand());
-        getCommand("permission").setTabCompleter(new PermissionCommand());
+        getCommand("accessguard").setExecutor(new PermissionCommand());
+        getCommand("accessguard").setTabCompleter(new PermissionCommand());
 
     }
 

@@ -40,16 +40,6 @@ public class PaperUserHandler {
         PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId());
         PermissionAttachment permissionAttachment = this.initPlayerAttachment(player);
         var user = PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId());
-        if (PaperPlugin.getInstance().getGroupHandler().getGroup(user.getGroupName()) != null) {
-            PaperPlugin.getInstance().getGroupHandler().getGroup(user.getGroupName()).getPermission().forEach(permission -> {
-                if (!permission.equals("*")) {
-                    player.setOp(true);
-                } else {
-                    permissionAttachment.setPermission(permission, true);
-                }
-            });
-        } else {
-            user.setGroupName("default");
-        }
+
     }
 }

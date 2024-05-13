@@ -3,8 +3,7 @@ package me.chickxn.global.user;
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserHandler {
 
@@ -19,8 +18,8 @@ public class UserHandler {
     }
 
     public void createUserIfNotExists(UUID uuid) {
-        if (repository.query().match("uuid", uuid).exists()) return;
-        repository.query().create(new User(uuid, "default", List.of("test.permission")));
+        if(repository.query().match("uuid", uuid).exists()) return;
+        repository.query().create(new User(uuid, "default", List.of("module.test")));
     }
 
     public void updateUser(User user) {
