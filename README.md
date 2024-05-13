@@ -1,8 +1,8 @@
-![Logo](https://cdn.discordapp.com/attachments/893971175821172747/1239574374080843796/OIG1-removebg-preview.png?ex=66436b18&is=66421998&hm=e22e281fd60f086300cdb8d04f5a8c2c29f2382892ba3029d47730a185a0fd69&)
+![Logo](https://cdn.discordapp.com/attachments/893971175821172747/1239574816202166292/OIG1.jpeg?ex=66436b82&is=66421a02&hm=29f38d4103c044efca50dc917bdac37dc9bf2777965fcbe84cbd4890948c26ea&)
 
 
-# AccessGuard 2.0 (currently in development)
-Introducing Vynl-PermissionSystem
+# AccessGuard (currently in development)
+Introducing AccessGuard
 
 Unlock the full potential of your Minecraft server with AccessGuard, the cutting-edge solution for personalized permissions management. Our system empowers players to tailor their own permissions, ensuring a unique and customized gameplay experience.
 
