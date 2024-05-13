@@ -1,5 +1,6 @@
 package me.chickxn.paper.commands;
 
+import me.chickxn.global.group.Groups;
 import me.chickxn.paper.PaperPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -12,6 +13,7 @@ import java.awt.print.Paper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class PermissionCommand implements CommandExecutor, TabCompleter {
 
@@ -19,17 +21,27 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         if (args.length == 0) {
             sendHelp(commandSender);
-        } else if (args.length == 2) {
+        } else if (args.length == 1) {
+             if (args[0].equalsIgnoreCase("group")) {
+                List<Groups> allGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
+                String groups = String.join(", §9", allGroups.stream().map(Groups::toString).collect(Collectors.toList()));
+                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "all available groups");
+                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + groups);
+            }
+        }else if (args.length == 2) {
             String groupName = args[1];
             String playerName = args[1];
+            UUID uuid = UUID.fromString(PaperPlugin.getInstance().getUuidFetcher().getUUID(playerName));
+            var user = PaperPlugin.getInstance().getUserHandler().getUser(uuid);
             if (args[0].equalsIgnoreCase("player")) {
-                UUID uuid = UUID.fromString(PaperPlugin.getInstance().getUuidFetcher().getUUID(playerName));
-                var user = PaperPlugin.getInstance().getUserHandler().getUser(uuid);
-                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Information about §9" + playerName);
-                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Group §8- §9" + user.getGroupName());
-                commandSender.sendMessage(user.getPermissions().toString());
-
-
+                if (PaperPlugin.getInstance().getUserHandler().exists(uuid)) {
+                    String permission = String.join(", §9" , user.getPermissions());
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Information about §9" + playerName);
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Group§8: §9" + user.getGroupName());
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Permissions§8: §9" + permission);
+                } else {
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The player §9" + playerName + " §7was not found in the §9database§8!");
+                }
             }
         }
         return false;
@@ -37,10 +49,10 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
 
     public void sendHelp(CommandSender commandSender) {
         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "available commands");
-        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/permission player §8(§9PLAYER§8) §8- §7information about the player§8!");
-        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/permission player §8(§9PLAYER§8) §7set §8(§9GROUP§8) §8- §7set the group for the player§8!");
-        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/permission player §8(§9PLAYER§8) §7add §8(§9PERMISSION§8) §8- §7add a custom permission to player§8!");
-        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/permission player §8(§9PLAYER§8) §7remove §8(§9PERMISSION§8) §8- §7remove a custom permission to player§8!");
+        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/accessguard player §8(§9PLAYER§8) §8- §7information about the player§8!");
+        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/accessguard player §8(§9PLAYER§8) §7set §8(§9GROUP§8) §8- §7set the group for the player§8!");
+        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/accessguard player §8(§9PLAYER§8) §7add §8(§9PERMISSION§8) §8- §7add a custom permission to player§8!");
+        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "/accessguard player §8(§9PLAYER§8) §7remove §8(§9PERMISSION§8) §8- §7remove a custom permission to player§8!");
     }
 
     @Override

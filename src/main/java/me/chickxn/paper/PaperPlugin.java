@@ -7,6 +7,7 @@ import me.chickxn.global.user.UserHandler;
 import me.chickxn.paper.commands.PermissionCommand;
 import me.chickxn.paper.handler.PaperUserHandler;
 import me.chickxn.paper.listener.PlayerJoinListener;
+import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,17 +22,21 @@ public class PaperPlugin extends JavaPlugin {
     private GroupHandler groupHandler;
     private PaperUserHandler paperUserHandler;
     private UUIDFetcher uuidFetcher;
+    private PaperConfiguration paperConfiguration;
 
-    private final String prefix = "§8▶▷ §9AccessGuard §8✒ §7";
+    private final String prefix = "§8» §9AccessGuard §8| §7";
 
     @Override
     public void onEnable() {
         instance = this;
+        this.paperConfiguration = Aeon.insert(new PaperConfiguration());
 
         this.userHandler = new UserHandler();
         this.paperUserHandler = new PaperUserHandler();
         this.groupHandler = new GroupHandler();
         this.uuidFetcher = new UUIDFetcher();
+
+        this.groupHandler.createGroupIfNotExists(paperConfiguration.getDefaultGroup());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
@@ -40,10 +45,14 @@ public class PaperPlugin extends JavaPlugin {
         getCommand("accessguard").setExecutor(new PermissionCommand());
         getCommand("accessguard").setTabCompleter(new PermissionCommand());
 
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7loaded§8!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Author: §91Chickxn §8| §7Version: §9" + this.getDescription().getVersion());
     }
 
     @Override
     public void onDisable() {
         instance = null;
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7disabled§8!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Author: §91Chickxn §8| §7Version: §9" + this.getDescription().getVersion());
     }
 }
