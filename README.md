@@ -6,7 +6,7 @@ Introducing AccessGuard
 
 Unlock the full potential of your Minecraft server with AccessGuard, the cutting-edge solution for personalized permissions management. Our system empowers players to tailor their own permissions, ensuring a unique and customized gameplay experience.
 
-Create and manage groups with ease, allowing for structured hierarchies and streamlined administration. With Vynl-PermissionSystem, you have the flexibility to define roles that fit your server’s needs perfectly.
+Create and manage groups with ease, allowing for structured hierarchies and streamlined administration. With AccessGuard, you have the flexibility to define roles that fit your server’s needs perfectly.
 
 Experience seamless integration with chat and tab prefix support, enhancing communication and identification across your server. Our system is designed to work flawlessly with popular server types including Paper, Spigot, BungeeCord, and Velocity, providing a consistent and reliable performance.
 
