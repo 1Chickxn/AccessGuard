@@ -23,24 +23,56 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
             sendHelp(commandSender);
         } else if (args.length == 1) {
              if (args[0].equalsIgnoreCase("group")) {
-                List<Groups> allGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
-                String groups = String.join(", §9", allGroups.stream().map(Groups::toString).collect(Collectors.toList()));
+                List<Groups> getAllGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
+                String groups = String.join(", §9", getAllGroups.stream().map(Groups::getGroupName).collect(Collectors.toList()));
                 commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "all available groups");
-                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + groups);
+                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "§9" + groups);
             }
-        }else if (args.length == 2) {
+        } else if (args.length == 2) {
             String groupName = args[1];
             String playerName = args[1];
             UUID uuid = UUID.fromString(PaperPlugin.getInstance().getUuidFetcher().getUUID(playerName));
             var user = PaperPlugin.getInstance().getUserHandler().getUser(uuid);
             if (args[0].equalsIgnoreCase("player")) {
                 if (PaperPlugin.getInstance().getUserHandler().exists(uuid)) {
-                    String permission = String.join(", §9" , user.getPermissions());
+                    String permission = String.join("§8, §9" , user.getPermissions());
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Information about §9" + playerName);
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Group§8: §9" + user.getGroupName());
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Permissions§8: §9" + permission);
                 } else {
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The player §9" + playerName + " §7was not found in the §9database§8!");
+                }
+            } else if (args[0].equalsIgnoreCase("group")) {
+                if (PaperPlugin.getInstance().getGroupHandler().exists(groupName)) {
+                    String groupPermissions = String.join("§8, §9", PaperPlugin.getInstance().getGroupHandler().getGroups(groupName).getPermissions());
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Information about the group §9" + groupName);
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Players§8: §9not implemented yet");
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Permissions§8: §9" + groupPermissions);
+                } else {
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 doesn't exists§8!");
+                }
+            }
+        } else if (args.length == 3) {
+            String groupName = args[1];
+            if (args[0].equalsIgnoreCase("group")) {
+                if (args[2].equalsIgnoreCase("create")) {
+                    if (!PaperPlugin.getInstance().getGroupHandler().exists(groupName)) {
+                        PaperPlugin.getInstance().getGroupHandler().createGroupIfNotExists(groupName);
+                        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 is now created§8!");
+                    } else {
+                        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 already exists§8!");
+                    }
+                } else if (args[2].equalsIgnoreCase("delete")) {
+                    if (PaperPlugin.getInstance().getGroupHandler().exists(groupName)) {
+                        if (!PaperPlugin.getInstance().getGroupHandler().getGroups(groupName).getGroupName().equals(PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup())) {
+                            PaperPlugin.getInstance().getGroupHandler().deleteGroup(groupName);
+                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 is now deleted§8!");
+                        } else {
+                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 cannot be deleted because it is a default group§8!");
+                        }
+                     } else {
+                        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 deosn't exists§8!");
+                    }
                 }
             }
         }
@@ -63,8 +95,9 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
             completions.add("player");
         } else if (args.length == 2) {
             if ("group".equalsIgnoreCase(args[0])) {
-                completions.add("admin");
-                completions.add("default");
+                List<Groups> getAllGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
+                List<String> groupNames = getAllGroups.stream().map(Groups::getGroupName).collect(Collectors.toList());
+                completions.addAll(groupNames);
             } else if ("player".equalsIgnoreCase(args[0])) {
                 for (Player player : PaperPlugin.getInstance().getServer().getOnlinePlayers()) {
                     completions.add(player.getName());

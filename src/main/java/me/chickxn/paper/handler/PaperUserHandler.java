@@ -25,7 +25,7 @@ public class PaperUserHandler {
     }
 
     public void initPlayerPermission(Player player) {
-        PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId());
+        PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId(), PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
         PermissionAttachment permissionAttachment = this.initPlayerAttachment(player);
         PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId()).getPermissions().forEach(permission -> {
             if (!permission.equals("*")) {
@@ -37,7 +37,7 @@ public class PaperUserHandler {
     }
 
     public void initGroupPermission(Player player) {
-        PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId());
+        PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId(), PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
         PermissionAttachment permissionAttachment = this.initPlayerAttachment(player);
         var user = PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId());
 

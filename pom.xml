@@ -69,12 +69,12 @@
         <dependency>
             <groupId>dev.httpmarco.evelon</groupId>
             <artifactId>evelon-common</artifactId>
-            <version>1.0.22-SNAPSHOT</version>
+            <version>1.0.23-20240514.115949-1</version>
         </dependency>
         <dependency>
             <groupId>dev.httpmarco.evelon</groupId>
             <artifactId>evelon-sql-mariadb</artifactId>
-            <version>1.0.22-SNAPSHOT</version>
+            <version>1.0.23-20240514.115949-1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -6,6 +6,7 @@ import me.chickxn.global.user.User;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class GroupHandler {
 
@@ -26,6 +27,10 @@ public class GroupHandler {
     public void createGroupIfNotExists(String groupName) {
         if(repository.query().match("groupName", groupName).exists()) return;
         repository.query().create(new Groups(groupName, "§7", "", "§7", 1, List.of("")));
+    }
+
+    public void deleteGroup(String groupName) {
+        repository.query().match("groupName", groupName).delete();
     }
 
     public boolean exists(String groupName) {

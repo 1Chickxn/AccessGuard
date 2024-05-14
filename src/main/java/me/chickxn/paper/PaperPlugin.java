@@ -1,5 +1,6 @@
 package me.chickxn.paper;
 
+import dev.httpmarco.evelon.layer.connection.ConnectionAuthenticationPath;
 import lombok.Getter;
 import me.chickxn.global.fetcher.UUIDFetcher;
 import me.chickxn.global.group.GroupHandler;
@@ -11,6 +12,8 @@ import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.nio.file.Path;
 
 @Getter
 public class PaperPlugin extends JavaPlugin {
@@ -29,6 +32,8 @@ public class PaperPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        ConnectionAuthenticationPath.set("plugins/AccessGuard/connection.json");
         this.paperConfiguration = Aeon.insert(new PaperConfiguration());
 
         this.userHandler = new UserHandler();
