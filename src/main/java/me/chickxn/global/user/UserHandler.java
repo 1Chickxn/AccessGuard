@@ -2,7 +2,6 @@ package me.chickxn.global.user;
 
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
-
 import java.util.*;
 
 public class UserHandler {

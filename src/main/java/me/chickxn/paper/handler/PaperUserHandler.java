@@ -28,7 +28,7 @@ public class PaperUserHandler {
         PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId(), PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
         PermissionAttachment permissionAttachment = this.initPlayerAttachment(player);
         PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId()).getPermissions().forEach(permission -> {
-            if (!permission.equals("*")) {
+            if (!permission.contains("*")) {
                 permissionAttachment.setPermission(permission, true);
             } else {
                 player.setOp(true);
@@ -40,6 +40,17 @@ public class PaperUserHandler {
         PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId(), PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
         PermissionAttachment permissionAttachment = this.initPlayerAttachment(player);
         var user = PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId());
-
+        if (PaperPlugin.getInstance().getGroupHandler().exists(user.getGroupName())) {
+            var group = PaperPlugin.getInstance().getGroupHandler().getGroups(user.getGroupName());
+            group.getPermissions().forEach(permission -> {
+                if (!permission.contains("*")) {
+                    permissionAttachment.setPermission(permission, true);
+                } else {
+                    player.setOp(true);
+                }
+            });
+        } else {
+            user.setGroupName(PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
+        }
     }
 }

@@ -2,11 +2,7 @@ package me.chickxn.global.group;
 
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
-import me.chickxn.global.user.User;
-
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class GroupHandler {
 
@@ -26,7 +22,7 @@ public class GroupHandler {
 
     public void createGroupIfNotExists(String groupName) {
         if(repository.query().match("groupName", groupName).exists()) return;
-        repository.query().create(new Groups(groupName, "§7", "", "§7", 1, List.of("")));
+        repository.query().create(new Groups(groupName, "§7", "§7", "§7", 1, List.of("test.module")));
     }
 
     public void deleteGroup(String groupName) {
@@ -37,7 +33,7 @@ public class GroupHandler {
         return repository.query().match("groupName", groupName).exists();
     }
 
-    public void updateUser(Groups groups) {
+    public void updateGroup(Groups groups) {
         repository.query().update(groups);
     }
 }

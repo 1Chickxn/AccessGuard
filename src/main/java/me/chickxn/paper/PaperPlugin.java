@@ -50,6 +50,8 @@ public class PaperPlugin extends JavaPlugin {
         getCommand("accessguard").setExecutor(new PermissionCommand());
         getCommand("accessguard").setTabCompleter(new PermissionCommand());
 
+
+
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7loaded§8!");
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Author: §91Chickxn §8| §7Version: §9" + this.getDescription().getVersion());
     }
