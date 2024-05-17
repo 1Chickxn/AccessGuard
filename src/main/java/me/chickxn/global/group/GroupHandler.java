@@ -2,6 +2,7 @@ package me.chickxn.global.group;
 
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
+
 import java.util.List;
 
 public class GroupHandler {
@@ -21,7 +22,7 @@ public class GroupHandler {
     }
 
     public void createGroupIfNotExists(String groupName) {
-        if(repository.query().match("groupName", groupName).exists()) return;
+        if (repository.query().match("groupName", groupName).exists()) return;
         repository.query().create(new Groups(groupName, "§7", "§7", "§7", 1, List.of("test.module")));
     }
 

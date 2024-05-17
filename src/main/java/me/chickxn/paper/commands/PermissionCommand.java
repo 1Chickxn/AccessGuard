@@ -3,14 +3,12 @@ package me.chickxn.paper.commands;
 import me.chickxn.global.group.Groups;
 import me.chickxn.paper.PaperPlugin;
 import me.chickxn.paper.handler.events.*;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.awt.print.Paper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +21,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
             sendHelp(commandSender);
         } else if (args.length == 1) {
-             if (args[0].equalsIgnoreCase("group")) {
+            if (args[0].equalsIgnoreCase("group")) {
                 List<Groups> getAllGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
                 String groups = String.join("§8, §9", getAllGroups.stream().map(Groups::getGroupName).collect(Collectors.toList()));
                 commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "all available groups");
@@ -79,7 +77,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                         } else {
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 cannot be deleted because it is a default group§8!");
                         }
-                     } else {
+                    } else {
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 deosn't exists§8!");
                     }
                 } else {

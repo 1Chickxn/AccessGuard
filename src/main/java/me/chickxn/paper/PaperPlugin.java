@@ -20,14 +20,12 @@ public class PaperPlugin extends JavaPlugin {
 
     @Getter
     private static PaperPlugin instance;
-
+    private final String prefix = "§8» §9AccessGuard §8| §7";
     private UserHandler userHandler;
     private GroupHandler groupHandler;
     private PaperUserHandler paperUserHandler;
     private UUIDFetcher uuidFetcher;
     private PaperConfiguration paperConfiguration;
-
-    private final String prefix = "§8» §9AccessGuard §8| §7";
 
     @Override
     public void onEnable() {
@@ -49,7 +47,6 @@ public class PaperPlugin extends JavaPlugin {
 
         getCommand("accessguard").setExecutor(new PermissionCommand());
         getCommand("accessguard").setTabCompleter(new PermissionCommand());
-
 
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7loaded§8!");

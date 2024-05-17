@@ -19,12 +19,12 @@ public class GroupPermissionUpdateEvent extends Event {
         this.removed = removed;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlerList;
     }
 }

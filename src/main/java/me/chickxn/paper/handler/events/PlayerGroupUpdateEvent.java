@@ -19,12 +19,12 @@ public class PlayerGroupUpdateEvent extends Event {
         this.oldGroupName = oldGroupName;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlerList;
     }
 }
