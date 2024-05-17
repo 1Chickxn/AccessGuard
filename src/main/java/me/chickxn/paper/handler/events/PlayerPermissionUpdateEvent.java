@@ -7,8 +7,8 @@ import org.bukkit.event.HandlerList;
 @Getter
 public class PlayerPermissionUpdateEvent extends Event {
 
-    @Getter
     private static final HandlerList handlerList = new HandlerList();
+
     private final String playerName;
     private final String permission;
     private final boolean removed;
@@ -21,6 +21,10 @@ public class PlayerPermissionUpdateEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
+        return handlerList;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 }

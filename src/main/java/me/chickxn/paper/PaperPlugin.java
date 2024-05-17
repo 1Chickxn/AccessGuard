@@ -8,12 +8,12 @@ import me.chickxn.global.user.UserHandler;
 import me.chickxn.paper.commands.PermissionCommand;
 import me.chickxn.paper.handler.PaperUserHandler;
 import me.chickxn.paper.listener.PlayerJoinListener;
+import me.chickxn.paper.listener.PlayerQuitListener;
 import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.nio.file.Path;
 
 @Getter
 public class PaperPlugin extends JavaPlugin {
@@ -45,7 +45,7 @@ public class PaperPlugin extends JavaPlugin {
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
-        pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new PlayerQuitListener(), this);
 
         getCommand("accessguard").setExecutor(new PermissionCommand());
         getCommand("accessguard").setTabCompleter(new PermissionCommand());

@@ -8,6 +8,7 @@ import org.bukkit.event.HandlerList;
 public class GroupCreateEvent extends Event {
 
     private static final HandlerList handlerList = new HandlerList();
+
     private final String groupName;
 
     public GroupCreateEvent(String groupName) {
@@ -16,6 +17,10 @@ public class GroupCreateEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
+        return handlerList;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 }

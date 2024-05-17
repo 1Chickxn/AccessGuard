@@ -8,6 +8,7 @@ import org.bukkit.event.HandlerList;
 public class GroupPermissionUpdateEvent extends Event {
 
     private static final HandlerList handlerList = new HandlerList();
+
     private final String groupName;
     private final String permission;
     private final boolean removed;
@@ -20,6 +21,10 @@ public class GroupPermissionUpdateEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
+        return handlerList;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 }

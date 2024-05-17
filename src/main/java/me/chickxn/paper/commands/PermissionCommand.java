@@ -2,13 +2,15 @@ package me.chickxn.paper.commands;
 
 import me.chickxn.global.group.Groups;
 import me.chickxn.paper.PaperPlugin;
-import me.chickxn.paper.handler.events.GroupCreateEvent;
+import me.chickxn.paper.handler.events.*;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.awt.print.Paper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,9 +64,8 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
             if (args[0].equalsIgnoreCase("group")) {
                 if (args[2].equalsIgnoreCase("create")) {
                     if (!PaperPlugin.getInstance().getGroupHandler().exists(groupName)) {
-
-                        PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupCreateEvent(groupName));
                         PaperPlugin.getInstance().getGroupHandler().createGroupIfNotExists(groupName);
+                        PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupCreateEvent(groupName));
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 is now created§8!");
                     } else {
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 already exists§8!");
@@ -74,6 +75,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                         if (!PaperPlugin.getInstance().getGroupHandler().getGroups(groupName).getGroupName().equals(PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup())) {
                             PaperPlugin.getInstance().getGroupHandler().deleteGroup(groupName);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 is now deleted§8!");
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupDeleteEvent(groupName));
                         } else {
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 cannot be deleted because it is a default group§8!");
                         }
@@ -98,6 +100,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     if (args[2].equalsIgnoreCase("add")) {
                         if (!group.getPermissions().contains(permissions)) {
                             group.getPermissions().add(permissions);
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupPermissionUpdateEvent(groupName, permissions, false));
                             PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The Group §9" + groupName + "§7 has now the permission §9" + permissions + "§8!");
                         } else {
@@ -106,6 +109,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     } else if (args[2].equalsIgnoreCase("remove")) {
                         if (group.getPermissions().contains(permissions)) {
                             group.getPermissions().remove(permissions);
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupPermissionUpdateEvent(groupName, permissions, true));
                             PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The Group §9" + groupName + "§7 has no longer the permission §9" + permissions + "§8!");
                         } else {
@@ -128,6 +132,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     if (args[2].equalsIgnoreCase("add")) {
                         if (!user.getPermissions().contains(permissions)) {
                             user.getPermissions().add(permissions);
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new PlayerPermissionUpdateEvent(playerName, permissions, false));
                             PaperPlugin.getInstance().getUserHandler().updateUser(user);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The player §9" + playerName + " §7has now the permission §9" + permissions + "§8!");
                         } else {
@@ -136,6 +141,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     } else if (args[2].equalsIgnoreCase("remove")) {
                         if (user.getPermissions().contains(permissions)) {
                             user.getPermissions().remove(permissions);
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new PlayerPermissionUpdateEvent(playerName, permissions, true));
                             PaperPlugin.getInstance().getUserHandler().updateUser(user);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The player §9" + playerName + " §7has no longer the permission §9" + permissions + "§8!");
                         } else {
@@ -143,6 +149,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                         }
                     } else if (args[2].equalsIgnoreCase("set")) {
                         if (PaperPlugin.getInstance().getGroupHandler().exists(groupNameNew)) {
+                            PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new PlayerGroupUpdateEvent(playerName, groupNameNew, user.getGroupName()));
                             user.setGroupName(groupNameNew);
                             PaperPlugin.getInstance().getUserHandler().updateUser(user);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The player §9" + playerName + "§7 is now in the group §9" + groupNameNew + "§8!");
