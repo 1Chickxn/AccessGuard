@@ -19,7 +19,8 @@ Elevate your server with AccessGuard – where control meets customization.
 - [ ] add veloctiy support
 - [ ] add spigot/paper support (chat and tablist support)
 
-- [ ] add mariadb support
-- [ ] add h2 support 
-- [ ] add mongodb support
-- [ ] add mysql support
+# database support
+- [x] mariadb
+- [ ] h2
+- [ ] mongodb
+- [ ] mysql
