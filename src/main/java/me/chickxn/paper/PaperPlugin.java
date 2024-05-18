@@ -9,14 +9,10 @@ import me.chickxn.paper.commands.PermissionCommand;
 import me.chickxn.paper.handler.PaperUserHandler;
 import me.chickxn.paper.listener.PlayerJoinListener;
 import me.chickxn.paper.listener.PlayerQuitListener;
-import me.chickxn.paper.loader.ModuleLoader;
 import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-
 
 @Getter
 public class PaperPlugin extends JavaPlugin {
@@ -29,16 +25,12 @@ public class PaperPlugin extends JavaPlugin {
     private PaperUserHandler paperUserHandler;
     private UUIDFetcher uuidFetcher;
     private PaperConfiguration paperConfiguration;
-    private ModuleLoader moduleLoader;
 
     @Override
     public void onEnable() {
         instance = this;
 
         ConnectionAuthenticationPath.set("plugins/AccessGuard/connection.json");
-
-        this.moduleLoader = new ModuleLoader(new File("plugins/AccessGuard/modules"), new File("plugins/AccessGuard-1.0-SNAPSHOT.jar"));
-        this.moduleLoader.loadModules();
 
         this.paperConfiguration = Aeon.insert(new PaperConfiguration());
 
