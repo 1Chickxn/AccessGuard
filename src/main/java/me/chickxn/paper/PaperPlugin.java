@@ -37,7 +37,8 @@ public class PaperPlugin extends JavaPlugin {
 
         ConnectionAuthenticationPath.set("plugins/AccessGuard/connection.json");
 
-        this.moduleLoader = new ModuleLoader(new File("plugins/AccessGuard/modules"));
+        this.moduleLoader = new ModuleLoader(new File("plugins/AccessGuard/modules"), new File("plugins/AccessGuard-1.0-SNAPSHOT.jar"));
+        this.moduleLoader.loadModules();
 
         this.paperConfiguration = Aeon.insert(new PaperConfiguration());
 
