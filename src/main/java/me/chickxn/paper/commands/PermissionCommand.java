@@ -114,10 +114,12 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The Group §9" + groupName + "§7 deosn't have the permission §9" + permissions + "§8!");
                         }
                     } else if (args[2].equalsIgnoreCase("setid")) {
+                        PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
                         group.setGroupID(Integer.parseInt(args[3]));
                         PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the id §9" + Integer.parseInt(args[3]));
                     } else if (args[2].equalsIgnoreCase("setnamecolor")) {
+                        PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
                         group.setGroupNameColour(groupNameColour);
                         PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + groupNameColour);
