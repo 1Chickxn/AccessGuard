@@ -2,6 +2,7 @@ package me.chickxn.global.user;
 
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
+import dev.httpmarco.evelon.sql.h2.H2Layer;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +12,7 @@ public class UserHandler {
     private final Repository<User> repository;
 
     public UserHandler() {
-        this.repository = Repository.build(User.class).withLayer(MariaDbLayer.class).withId("users").build();
+        this.repository = Repository.build(User.class).withLayer(H2Layer.class).withLayer(MariaDbLayer.class).withId("users").build();
     }
 
     public User getUser(UUID uuid) {

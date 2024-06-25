@@ -9,10 +9,13 @@ import me.chickxn.paper.commands.PermissionCommand;
 import me.chickxn.paper.handler.PaperUserHandler;
 import me.chickxn.paper.listener.PlayerJoinListener;
 import me.chickxn.paper.listener.PlayerQuitListener;
+import me.chickxn.paper.loader.PaperModuleLoader;
 import net.http.aeon.Aeon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 @Getter
 public class PaperPlugin extends JavaPlugin {
@@ -25,6 +28,7 @@ public class PaperPlugin extends JavaPlugin {
     private PaperUserHandler paperUserHandler;
     private UUIDFetcher uuidFetcher;
     private PaperConfiguration paperConfiguration;
+    private PaperModuleLoader paperModuleLoader;
 
     @Override
     public void onEnable() {
@@ -48,9 +52,12 @@ public class PaperPlugin extends JavaPlugin {
         getCommand("accessguard").setExecutor(new PermissionCommand());
         getCommand("accessguard").setTabCompleter(new PermissionCommand());
 
-
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7loaded§8!");
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Author: §91Chickxn §8| §7Version: §9" + this.getDescription().getVersion());
+
+        this.paperModuleLoader = new PaperModuleLoader();
+        paperModuleLoader.loadModules(new File("plugins/AccessGuard/modules/"));
+
     }
 
     @Override

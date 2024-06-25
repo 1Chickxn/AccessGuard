@@ -2,6 +2,7 @@ package me.chickxn.global.group;
 
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
+import dev.httpmarco.evelon.sql.h2.H2Layer;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class GroupHandler {
     private final Repository<Groups> repository;
 
     public GroupHandler() {
-        this.repository = Repository.build(Groups.class).withLayer(MariaDbLayer.class).withId("groups").build();
+        this.repository = Repository.build(Groups.class).withLayer(H2Layer.class).withLayer(MariaDbLayer.class).withId("groups").build();
     }
 
     public Groups getGroups(String groupName) {
