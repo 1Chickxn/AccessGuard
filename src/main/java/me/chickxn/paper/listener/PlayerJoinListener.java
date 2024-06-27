@@ -12,7 +12,10 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent playerJoinEvent) {
         Player player = playerJoinEvent.getPlayer();
         PaperPlugin.getInstance().getUserHandler().createUserIfNotExists(player.getUniqueId(), PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
-        PaperPlugin.getInstance().getPaperUserHandler().initPlayerPermission(player);
+        if (!PaperPlugin.getInstance().getGroupHandler().exists(PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId()).getGroupName())) {
+            PaperPlugin.getInstance().getUserHandler().getUser(player.getUniqueId()).setGroupName(PaperPlugin.getInstance().getPaperConfiguration().getDefaultGroup());
+        }
         PaperPlugin.getInstance().getPaperUserHandler().initGroupPermission(player);
+        PaperPlugin.getInstance().getPaperUserHandler().initPlayerPermission(player);
     }
 }

@@ -3,6 +3,8 @@ package me.chickxn.global.group;
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
 import dev.httpmarco.evelon.sql.h2.H2Layer;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class GroupHandler {
 
     public void createGroupIfNotExists(String groupName) {
         if (repository.query().match("groupName", groupName).exists()) return;
-        repository.query().create(new Groups(groupName, "§7", "§7", "§7", 1, List.of("test.module")));
+        repository.query().create(new Groups(groupName, "§7", "§7", ChatColor.GRAY, 1, List.of("test.module")));
     }
 
     public void deleteGroup(String groupName) {

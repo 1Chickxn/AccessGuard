@@ -3,6 +3,9 @@ package me.chickxn.paper.commands;
 import me.chickxn.global.group.Groups;
 import me.chickxn.paper.PaperPlugin;
 import me.chickxn.paper.handler.events.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,6 +13,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,6 +22,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+
         if (args.length == 0) {
             sendHelp(commandSender);
         } else if (args.length == 1) {
@@ -49,7 +54,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Group ID§8: §9" + group.getGroupID());
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Prefix§8: §9" + group.getGroupPrefix().replace("&", "§") + commandSender.getName());
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Suffix§8: §9" + group.getGroupSuffix().replace("&", "§"));
-                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "NameColour§8: §9" + group.getGroupNameColour().replace("&", "§") + commandSender.getName());
+                    commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "NameColour§8: §9" + group.getGroupNameColour().toString() + commandSender.getName());
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Permissions§8: §9" + groupPermissions);
                 } else {
                     commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 doesn't exists§8!");
@@ -86,12 +91,16 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
             } else {
                 sendHelp(commandSender);
             }
-        } else if (args.length == 4) {
+        } else {
             String groupName = args[1];
             String playerName = args[1];
             String permissions = args[3];
-            String groupNameColour = args[3];
+            ChatColor groupNameColour = ChatColor.valueOf(args[3]);
             String groupNameNew = args[3];
+            String message = "";
+            for (int i = 3; i <= args.length - 1; i++) {
+                message = message + args[i] + " ";
+            }
             if (args[0].equalsIgnoreCase("group")) {
                 var group = PaperPlugin.getInstance().getGroupHandler().getGroups(groupName);
                 if (PaperPlugin.getInstance().getGroupHandler().exists(groupName)) {
@@ -120,9 +129,33 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the id §9" + Integer.parseInt(args[3]));
                     } else if (args[2].equalsIgnoreCase("setnamecolor")) {
                         PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
-                        group.setGroupNameColour(groupNameColour);
-                        PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
-                        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + groupNameColour);
+                        if (groupNameColour.isColor()) {
+                            group.setGroupNameColour(groupNameColour);
+                            PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
+                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + groupNameColour);
+                        } else {
+                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "please use a correct Colour§8!");
+                        }
+                    } else if (args[2].equalsIgnoreCase("setprefix")) {
+                        commandSender.sendMessage(message);
+
+                        var groupUpdate = PaperPlugin.getInstance().getGroupHandler().getGroups(groupName);
+                        groupUpdate.setGroupPrefix(message.replace("&", "§"));
+                        PaperPlugin.getInstance().getGroupHandler().updateGroup(groupUpdate);
+                        Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(groupName));
+
+                        Bukkit.getOnlinePlayers().forEach(onlinePlayers -> {
+                            PaperPlugin.getInstance().getPaperUserHandler().updatePermissions(onlinePlayers);
+                        });
+                    } else if (args[2].equalsIgnoreCase("setsuffix")) {
+                        var groupUpdate = PaperPlugin.getInstance().getGroupHandler().getGroups(groupName);
+                        groupUpdate.setGroupSuffix(message.replace("&", "§"));
+                        PaperPlugin.getInstance().getGroupHandler().updateGroup(groupUpdate);
+                        Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(groupName));
+
+                        Bukkit.getOnlinePlayers().forEach(onlinePlayers -> {
+                            PaperPlugin.getInstance().getPaperUserHandler().updatePermissions(onlinePlayers);
+                        });
                     }
                 }
             } else if (args[0].equalsIgnoreCase("player")) {
@@ -164,6 +197,9 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                 sendHelp(commandSender);
             }
         }
+        Bukkit.getOnlinePlayers().forEach(onlinePlayers -> {
+            PaperPlugin.getInstance().getPaperUserHandler().updatePermissions(onlinePlayers);
+        });
         return false;
     }
 
@@ -205,6 +241,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                 completions.add("remove");
                 completions.add("add");
                 completions.add("setprefix");
+                completions.add("setsuffix");
                 completions.add("setid");
                 completions.add("setnamecolor");
             } else if ("player".equalsIgnoreCase(args[0])) {
@@ -218,6 +255,10 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     List<Groups> getAllGroups = PaperPlugin.getInstance().getGroupHandler().getAllGroups();
                     List<String> groupNames = getAllGroups.stream().map(Groups::getGroupName).collect(Collectors.toList());
                     completions.addAll(groupNames);
+                }
+            } else if ("group".equalsIgnoreCase(args[0])) {
+                if ("setnamecolour".equalsIgnoreCase(args[2])) {
+                    completions.add(Arrays.toString(ChatColor.values()));
                 }
             }
         }

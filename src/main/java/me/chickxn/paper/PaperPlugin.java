@@ -55,8 +55,14 @@ public class PaperPlugin extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "AccessGuard §9successfully §7loaded§8!");
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Author: §91Chickxn §8| §7Version: §9" + this.getDescription().getVersion());
 
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            PaperPlugin.getInstance().getPaperUserHandler().updatePermissions(player);
+        });
+
         this.paperModuleLoader = new PaperModuleLoader();
         paperModuleLoader.loadModules(new File("plugins/AccessGuard/modules/"));
+
+
 
     }
 
