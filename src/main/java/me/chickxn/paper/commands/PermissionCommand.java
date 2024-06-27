@@ -130,7 +130,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     } else if (args[2].equalsIgnoreCase("setnamecolor")) {
                         PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
                         if (groupNameColour.isColor()) {
-                            group.setGroupNameColour(groupNameColour);
+                            group.setGroupNameColour(String.valueOf(groupNameColour));
                             PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + groupNameColour);
                         } else {

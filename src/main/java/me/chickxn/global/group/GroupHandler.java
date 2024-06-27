@@ -26,7 +26,7 @@ public class GroupHandler {
 
     public void createGroupIfNotExists(String groupName) {
         if (repository.query().match("groupName", groupName).exists()) return;
-        repository.query().create(new Groups(groupName, "§7", "§7", ChatColor.GRAY, 1, List.of("test.module")));
+        repository.query().create(new Groups(groupName, "§7", "§7", String.valueOf(ChatColor.GRAY), 1, List.of("test.module")));
     }
 
     public void deleteGroup(String groupName) {

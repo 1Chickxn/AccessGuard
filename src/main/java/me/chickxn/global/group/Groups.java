@@ -18,7 +18,7 @@ public class Groups {
     private String groupName;
     private String groupPrefix;
     private String groupSuffix;
-    private ChatColor groupNameColour;
+    private String groupNameColour;
     private int groupID;
     private List<String> permissions;
 
