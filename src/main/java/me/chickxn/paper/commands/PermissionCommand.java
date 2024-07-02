@@ -20,6 +20,26 @@ import java.util.stream.Collectors;
 
 public class PermissionCommand implements CommandExecutor, TabCompleter {
 
+    private List<String> colorCodes = List.of(
+            "0", // BLACK
+            "1", // DARK_BLUE
+            "2", // DARK_GREEN
+            "3", // DARK_AQUA
+            "4", // DARK_RED
+            "5", // DARK_PURPLE
+            "6", // GOLD
+            "7", // GRAY
+            "8", // DARK_GRAY
+            "9", // BLUE
+            "a", // GREEN
+            "b", // AQUA
+            "c", // RED
+            "d", // LIGHT_PURPLE
+            "e", // YELLOW
+            "f"  // WHITE
+    );
+
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         if (commandSender.hasPermission("accessguard.use")) {
@@ -127,14 +147,15 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                             PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                             commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the id §9" + Integer.parseInt(args[3]));
                         } else if (args[2].equalsIgnoreCase("setnamecolor")) {
+                            if (colorCodes.contains(args[3])) {
+                                group.setGroupNameColour(args[3].replace("&", "§"));
+                                PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
+                                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + args[3]);
+                            } else {
+                                commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "Please use a right color code§8!");
+                            }
                             PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
-                            group.setGroupNameColour(args[3].replace("&", "§"));
-                            PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
-                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + args[3]);
-
                         } else if (args[2].equalsIgnoreCase("setprefix")) {
-                            commandSender.sendMessage(message);
-
                             var groupUpdate = PaperPlugin.getInstance().getGroupHandler().getGroups(groupName);
                             groupUpdate.setGroupPrefix(message.replace("&", "§"));
                             PaperPlugin.getInstance().getGroupHandler().updateGroup(groupUpdate);
@@ -257,7 +278,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                 }
             } else if ("group".equalsIgnoreCase(args[0])) {
                 if ("setnamecolor".equalsIgnoreCase(args[2])) {
-                    completions.add(Arrays.toString(ChatColor.values()));
+                    completions.addAll(colorCodes);
                 }
             }
         }
