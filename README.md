@@ -1,4 +1,4 @@
-![Logo](https://cdn.discordapp.com/attachments/893971175821172747/1239574816202166292/OIG1.jpeg?ex=66436b82&is=66421a02&hm=29f38d4103c044efca50dc917bdac37dc9bf2777965fcbe84cbd4890948c26ea&)
+![Logo](https://github.com/1Chickxn/AccessGuard/blob/master/accessguard.jpeg)
 
 
 # AccessGuard (currently in development)
