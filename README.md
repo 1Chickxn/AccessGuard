@@ -14,13 +14,15 @@ Currently supporting MariaDB, we are committed to expanding our database compati
 
 Elevate your server with AccessGuard – where control meets customization.
 
+#Modules
+- [x] Chat and Tablist module
+
 # roadmap
 - [ ] add bungeecord support
 - [ ] add veloctiy support
-- [ ] add spigot/paper support (chat and tablist support)
+- [x] add paper support
 
 # database support
 - [x] mariadb
-- [ ] h2
+- [x] h2
 - [ ] mongodb
-- [ ] mysql
