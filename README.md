@@ -14,7 +14,7 @@ Currently supporting MariaDB, we are committed to expanding our database compati
 
 Elevate your server with AccessGuard – where control meets customization.
 
-#Modules
+# Modules
 - [x] Chat and Tablist module
 
 # roadmap
