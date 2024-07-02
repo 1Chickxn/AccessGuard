@@ -1,4 +1,4 @@
-![Logo](https://cdn.discordapp.com/attachments/893971175821172747/1239574816202166292/OIG1.jpeg?ex=66436b82&is=66421a02&hm=29f38d4103c044efca50dc917bdac37dc9bf2777965fcbe84cbd4890948c26ea&)
+![Logo](https://github.com/1Chickxn/AccessGuard/blob/master/accessguard.jpeg)
 
 
 # AccessGuard (currently in development)
@@ -14,13 +14,15 @@ Currently supporting MariaDB, we are committed to expanding our database compati
 
 Elevate your server with AccessGuard – where control meets customization.
 
+# Modules
+- [x] Chat and Tablist module
+
 # roadmap
 - [ ] add bungeecord support
 - [ ] add veloctiy support
-- [ ] add spigot/paper support (chat and tablist support)
+- [x] add paper support
 
 # database support
 - [x] mariadb
-- [ ] h2
+- [x] h2
 - [ ] mongodb
-- [ ] mysql
