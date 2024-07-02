@@ -95,7 +95,6 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
             String groupName = args[1];
             String playerName = args[1];
             String permissions = args[3];
-            ChatColor groupNameColour = ChatColor.valueOf(args[3]);
             String groupNameNew = args[3];
             String message = "";
             for (int i = 3; i <= args.length - 1; i++) {
@@ -129,13 +128,10 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                         commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the id §9" + Integer.parseInt(args[3]));
                     } else if (args[2].equalsIgnoreCase("setnamecolor")) {
                         PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
-                        if (groupNameColour.isColor()) {
-                            group.setGroupNameColour(String.valueOf(groupNameColour));
-                            PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
-                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + groupNameColour);
-                        } else {
-                            commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "please use a correct Colour§8!");
-                        }
+                        group.setGroupNameColour(args[3].replace("&", "§"));
+                        PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
+                        commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The group §9" + groupName + "§7 has now the group name colour §9" + args[3]);
+
                     } else if (args[2].equalsIgnoreCase("setprefix")) {
                         commandSender.sendMessage(message);
 
@@ -257,7 +253,7 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                     completions.addAll(groupNames);
                 }
             } else if ("group".equalsIgnoreCase(args[0])) {
-                if ("setnamecolour".equalsIgnoreCase(args[2])) {
+                if ("setnamecolor".equalsIgnoreCase(args[2])) {
                     completions.add(Arrays.toString(ChatColor.values()));
                 }
             }

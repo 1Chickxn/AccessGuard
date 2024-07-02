@@ -4,7 +4,6 @@ import dev.httpmarco.evelon.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.ChatColor;
 
 
 import java.util.List;
