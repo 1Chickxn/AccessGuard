@@ -1,7 +1,6 @@
 package me.chickxn.paper.handler;
 
 import lombok.Getter;
-import me.chickxn.paper.PaperConfiguration;
 import me.chickxn.paper.PaperPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;

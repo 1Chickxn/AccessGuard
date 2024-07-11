@@ -1,5 +1,5 @@
 name: AccessGuard
-version: 0.1-alpha
+version: 0.1-pre.alpha
 description: permissionsystem for your minecraft server
 author: 1Chickxn
 main: me.chickxn.paper.PaperPlugin

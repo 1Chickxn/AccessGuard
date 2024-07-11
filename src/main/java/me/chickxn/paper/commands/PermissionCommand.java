@@ -4,8 +4,6 @@ import me.chickxn.global.group.Groups;
 import me.chickxn.paper.PaperPlugin;
 import me.chickxn.paper.handler.events.*;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +11,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -127,7 +124,9 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                             if (!group.getPermissions().contains(permissions)) {
                                 group.getPermissions().add(permissions);
                                 PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupPermissionUpdateEvent(groupName, permissions, false));
+                                group.getPermissions().add(permissions);
                                 PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
+
                                 commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The Group §9" + groupName + "§7 has now the permission §9" + permissions + "§8!");
                             } else {
                                 commandSender.sendMessage(PaperPlugin.getInstance().getPrefix() + "The Group §9" + groupName + "§7 already has the permission §9" + permissions + "§8!");
@@ -156,9 +155,8 @@ public class PermissionCommand implements CommandExecutor, TabCompleter {
                             }
                             PaperPlugin.getInstance().getServer().getPluginManager().callEvent(new GroupUpdateEvent(groupName));
                         } else if (args[2].equalsIgnoreCase("setprefix")) {
-                            var groupUpdate = PaperPlugin.getInstance().getGroupHandler().getGroups(groupName);
-                            groupUpdate.setGroupPrefix(message.replace("&", "§"));
-                            PaperPlugin.getInstance().getGroupHandler().updateGroup(groupUpdate);
+                            group.setGroupPrefix(message.replace("&", "§"));
+                            PaperPlugin.getInstance().getGroupHandler().updateGroup(group);
                             Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(groupName));
 
                             Bukkit.getOnlinePlayers().forEach(onlinePlayers -> {

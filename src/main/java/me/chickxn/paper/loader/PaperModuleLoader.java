@@ -17,7 +17,7 @@ import java.util.jar.Manifest;
 @Getter
 public class PaperModuleLoader {
 
-    private List<PaperModule> moduleList = new ArrayList<>();
+    private final List<PaperModule> moduleList = new ArrayList<>();
 
     public void loadModules(File file) {
         if (!file.exists() || !file.isDirectory()) {

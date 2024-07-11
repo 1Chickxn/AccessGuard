@@ -62,8 +62,6 @@ public class PaperPlugin extends JavaPlugin {
         this.paperModuleLoader = new PaperModuleLoader();
         paperModuleLoader.loadModules(new File("plugins/AccessGuard/modules/"));
 
-
-
     }
 
     @Override
